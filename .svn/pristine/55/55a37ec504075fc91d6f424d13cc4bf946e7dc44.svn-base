@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{{asset('css\index.css')}}">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css\bootstrap.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css\style.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css\dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css\buttons.dataTables.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css\select2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css\style_2.css')}}">
+</head>
+<body>
+    @yield('content')
+</body>
+    <script type="text/javascript" src="{{asset('jquery\jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('jquery\jquery.cookie.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/course/index.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js\bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{asset('js\jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('js\dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('js\data-table-custom.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js\select2.full.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js\select2-custom.js')}}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.0/axios.min.js"></script>
+<script></script>
+@stack('scripts')
+</html>

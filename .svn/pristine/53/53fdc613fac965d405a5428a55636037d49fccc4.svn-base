@@ -1,0 +1,30 @@
+@extends('layouts.layout')
+@section('content')
+
+    <div class="col-lg-8 " style="margin-top: 20px;">
+        <div class="cart">
+            <div class="card-header flex-item">
+                <div class="col-lg-4">
+                    <select name="select" id="select_category" class="form-control form-control-primary">
+                        <option value="">Chọn danh mục</option>
+                        <option value="1">Nước uống</option>
+                        <option value="2">Xe máy</option>
+                        <option value="3">Đồ chơi</option>
+                    </select>
+                </div>
+                <div class="col-lg-4" style="display: flex; align-items: center;">
+                    <input id="search" type="text" class="form-control form-control-primary" placeholder="Search">
+                    <span><i class='bx bxs-cart card-header-icon'></i></span>
+                </div>
+            </div>
+       
+            <div class="row list_product">
+                
+            </div>
+          
+            
+        </div>
+    </div>
+@endsection
+@push('scripts')
+@endpush

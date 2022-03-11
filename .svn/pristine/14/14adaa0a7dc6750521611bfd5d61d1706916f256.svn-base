@@ -1,0 +1,105 @@
+$(function() {
+    dataTable();
+    loadCart();
+    $('#select_category').change(function() {
+        let id = $(this).find(':selected').val();
+        productByCate(id);
+    });
+    
+
+    $('.qty').change(function(){
+        
+        let parent = $(this).parents("tr");
+        let qty = parseFloat(parent.find(this).val());
+        let price = parseFloat(parent.find('td:eq(5)').text());
+        
+
+
+        let total = parent.find('.total').text(qty*price);
+        //dataTable().row($(this).parents("tr")).data(qty);
+    });
+
+    $('.unit').change(function(){
+        let parent = $(this).parents("tr");
+        let unit = parent.find(this).find(':selected').val();
+        let price = parseFloat(parent.find('td:eq(5)').text());
+        let conversion_value = parent.find('td:eq(2)').text();
+        let qty = parseFloat(parent.find('td:eq(5)').text());
+        if(unit == 'conversion_unit'){
+            //price/conversion_value * qty discount
+        }else{
+
+        }
+   
+
+    })
+  
+})
+
+
+function loadCart(){
+    return $.parseJSON($.cookie('product'));
+}
+
+async function dataTable(){
+    return await $('#cart').DataTable({
+        data: loadCart(),
+        columns: [
+            {data: 'name'},
+            { data: 'unit' , visible: false },
+            { data: 'conversion_unit',visible: false },
+            {
+                data: null,
+                render: function(data){
+                    return `
+                        <select class="unit">
+                            <option value="unit">${data['unit']}</option>
+                            <option value="conversion_unit">${data['conversion_unit']}</option>
+                        </select>
+                    `
+                }
+            },
+            { data: 'conversion_value' },
+            { data: 'quantity_whole' },
+            { data: 'price_whole' },
+            { data: 'inventor' },
+            { data: 'price_orginal' },
+            {data: 'discount'},
+            {data: 'price'},
+            {data: 'qty',
+                render: function(data){
+                    return `<input class="qty" value="${data}"/>`
+                }
+            },
+            { 
+                data: null, 
+                render: function(data, type, row, meta) {
+                    return `<span class="total">${(data['price'] - (data['price'] * data['discount'] /100)) * data['qty']}</span>` ;
+                }
+            }
+         
+        ],
+        "bDestroy": true,
+        "pageLength": 5,
+
+        language: {
+            processing: "Loading",
+            search: "Tìm kiếm",
+            lengthMenu: "Hiển thị _MENU_ ",
+            info: "Bản ghi từ _START_ đến _END_ Tổng cộng _TOTAL_ bản ghi",
+            infoEmpty: "Khi không có dữ liệu, Hiển thị 0 bản ghi trong 0 tổng cộng 0 ",
+           
+            zeroRecords: "Không tìm thấy",
+            emptyTable: "Không có dữ liệu",
+            paginate: {
+                first: "Trang đầu",
+                previous: "Trang trước",
+                next: "Trang sau",
+                last: "Trang cuối"
+            },
+            
+        },
+
+    });
+}
+

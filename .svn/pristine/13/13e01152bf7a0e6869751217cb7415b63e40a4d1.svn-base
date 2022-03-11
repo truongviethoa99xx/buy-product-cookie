@@ -1,0 +1,56 @@
+@extends('layouts.layout')
+@section('content')
+
+    <div class="col-lg-8 " style="margin-top: 20px;">
+        <div class="cart">
+            <div class="card-header flex-item">
+                <div class="col-lg-4">
+                    <select name="select" id="select_category" class="form-control form-control-primary">
+                        <option value="">Chọn danh mục</option>
+                        <option value="1">Nước uống</option>
+                        <option value="2">Xe máy</option>
+                        <option value="3">Đồ chơi</option>
+                    </select>
+                </div>
+                <div class="col-lg-4" style="display: flex; align-items: center;">
+                    <input type="text" class="form-control form-control-primary" placeholder="Search">
+                    <span><i class='bx bxs-cart card-header-icon'></i></span>
+                </div>
+            </div>
+       
+            <div class="row list_product">
+                
+            </div>
+          
+            
+        </div>
+    </div>
+    
+<style>
+.productbox {
+background-color:#ffffff;
+padding:10px;
+margin-bottom:10px;
+-webkit-box-shadow: 0 8px 6px -6px  #999;
+-moz-box-shadow: 0 8px 6px -6px  #999;
+box-shadow: 0 8px 6px -6px #999;
+}
+
+.producttitle {
+font-weight:bold;
+padding:5px 0 5px 0;
+}
+
+.productprice {
+border-top:1px solid #dadada;
+padding-top:5px;
+}
+
+.pricetext {
+font-weight:bold;
+font-size:1.4em;
+}
+</style>
+@endsection
+@push('scripts')
+@endpush

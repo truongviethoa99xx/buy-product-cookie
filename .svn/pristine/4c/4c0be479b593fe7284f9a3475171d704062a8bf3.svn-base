@@ -1,0 +1,25 @@
+<div class="col l-2 m-0 c-0">
+            <nav class="category">
+               <h3 class="category__heading">
+                  <i class="category__heading-icon bx bx-list-ul"></i>
+                  <span class="category__heading-title"> Danh mục</span>
+               </h3>
+               <ul class="category-list">
+                  <li class="category-item">
+                     <a href="" class="category-item__link">
+                     Nước uống
+                     </a>
+                  </li>
+                  <li class="category-item">
+                     <a href="" class="category-item__link">
+                     Đồ chơi
+                     </a>
+                  </li>
+                  <li class="category-item">
+                     <a href="" class="category-item__link">
+                     Xe máy
+                     </a>
+                  </li>
+               </ul>
+            </nav>
+         </div>

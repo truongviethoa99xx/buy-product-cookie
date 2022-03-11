@@ -1,0 +1,21 @@
+@extends('layouts.layout')
+@section('content')
+    <div class="col-lg-8">
+        <div class="cart form-flex">
+            <div class="col-lg-3">
+            <select name="select" class="form-control form-control-primary">
+                <option value="1">Đồ chơi</option>
+                <option value="2">Xe máy</option>
+                <option value="3">Nước uóng</option>
+            </select>
+            </div>
+            <div class="col-lg-3">
+                <input type="text" class="form-control form-control-primary" placeholder="Search">
+                <i class='bx bxs-cart'></i>
+            </div>
+        </div>
+    </div>
+    
+@endsection
+@push('scripts')
+@endpush

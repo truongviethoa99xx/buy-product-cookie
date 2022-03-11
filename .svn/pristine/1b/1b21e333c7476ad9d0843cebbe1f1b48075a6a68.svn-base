@@ -1,0 +1,7 @@
+.form-flex {
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    width: 100%;
+    min-height: 400px;
+}

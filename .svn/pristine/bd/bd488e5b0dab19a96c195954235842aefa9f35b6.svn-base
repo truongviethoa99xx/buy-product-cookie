@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+<div id="pcoded" class="pcoded">
+    <div class="pcoded-overlay-box"></div>
+    <div class="pcoded-container navbar-wrapper">
+        <div class="pcoded-main-container">
+            <div class="pcoded-wrapper">
+                <div class="pcoded-content">
+                    <div class="pcoded-inner-content">
+                        <div class="main-body" id="content-body-techres">
+                            <?php echo $__env->yieldContent('content'); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script></script>
+<?php echo $__env->yieldPushContent('scripts'); ?>
+</html>
+<?php /**PATH E:\OverateVNTech\Training\resources\views/layouts/layout.blade.php ENDPATH**/ ?>

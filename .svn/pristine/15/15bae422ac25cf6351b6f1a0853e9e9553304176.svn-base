@@ -1,0 +1,17 @@
+.form-flex {
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    width: 100%;
+    min-height: 400px;
+}
+
+.flex-item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-header-icon {
+    font-size: 30px;
+    margin-left: 20px;
+}

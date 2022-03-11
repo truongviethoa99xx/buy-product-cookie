@@ -1,0 +1,25 @@
+@extends('layouts.layout')
+@section('content')
+    <div class="form-contain">
+        <div class="cart-form">
+            <div class="header-cart">
+                <select name="" id="select-category">
+                    <option value="1">Đồ chơi</option>
+                    <option value="2">Xe máy</option>
+                    <option value="3">Máy tính</option>
+                </select>
+                <input type="text" placeholder = "search" class="cart-input">
+            </div>
+            <div class="body-cart">
+
+            </div>
+            <div class="footer-cart">
+                <span class="qta-cart">1</span>
+                <i class='bx bxs-cart'></i>
+            </div>
+        </div>
+    </div>
+@endsection
+@push('scripts')
+    <script type="text/javascript" src="public/js/course/index.js"></script>
+@endpush

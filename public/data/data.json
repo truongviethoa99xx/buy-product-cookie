@@ -1,0 +1,74 @@
+[
+        {
+            "category_id": 1,
+            "name": "Bia SaiGon",
+            "id": 1,
+            "price_orginal": 250000,
+            "price": 300000,
+            "discount": 20,
+            "unit": "Thùng",
+            "conversion_unit": "Lon",
+            "conversion_value": 24,
+            "quantity_whole": 10,
+            "price_whole": 280000,
+            "inventor": 50
+        },
+        {
+            "category_id": 1,
+            "name": "Sting",
+            "id": 2,
+            "price_orginal": 40000,
+            "price": 50000,
+            "discount": 10,
+            "unit": "Block",
+            "conversion_unit": "Chai",
+            "conversion_value": 10,
+            "quantity_whole": 10,
+            "price_whole": 45000,
+            "inventor": 50
+        },
+        {
+            "category_id": 1,
+            "name": "Volka",
+            "id": 3,
+            "price_orginal": 3000000,
+            "price": 3500000,
+            "discount": 10,
+            "unit": "Block",
+            "conversion_unit": "Chai",
+            "conversion_value": 6,
+            "quantity_whole": 6,
+            "price_whole": 3200000,
+            "inventor": 50
+        },
+        {
+            "category_id": 1,
+            "name": "Budweiser",
+            "id": 4,
+            "price_orginal": 350000,
+            "price": 450000,
+            "discount": 20,
+            "unit": "Thùng",
+            "conversion_unit": "Lon",
+            "conversion_value": 24,
+            "quantity_whole": 10,
+            "price_whole": 400000,
+            "inventor": 50
+        },
+        {
+            "category_id": 1,
+            "name": "Corona Mexico",
+            "id": 5,
+            "price_orginal": 200000,
+            "price": 240000,
+            "discount": 20,
+            "unit": "Block",
+            "conversion_unit": "Chai",
+            "conversion_value": 6,
+            "quantity_whole": 6,
+            "price_whole": 220000,
+            "inventor": 50
+        }
+        
+        
+]

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{{asset('css\index.css')}}">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="{{asset('css\bootstrap.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css\dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css\buttons.dataTables.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css\select2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css\base.css')}}">
+    <link rel="stylesheet" href="{{asset('css\grid.css')}}">
+    <link rel="stylesheet" href="{{asset('css\reponsive.css')}}">
+    <link rel="stylesheet" href="{{asset('css\styles.css')}}">
+    <link rel="stylesheet" href="{{asset('font\fontawesome-free-5.15.4-web\css\all.css')}}">
+</head>
+<body>
+<header class="header">
+<div class="grid wide">
+   <!-- header with search -->
+   <div class="header-with-search">
+      <div class="header__logo hide-on-tablet">
+         <a href="/" class="header__logo-link">
+            <div class="header__logo-img">
+               <img src="{{asset('images\logo.png')}}" alt="Logo">
+            </div>
+         </a>
+      </div>
+      <input type="checkbox" hidden id="mobile-search-checkbox" class="header__search-checkbox">
+      <!-- Search -->
+      <div class="header__search">
+         <div class="header__search-input-wrap">
+            <input id="search" type="text" class="header__search-input" placeholder="Tên sản phẩm, hoặc giá" />
+         </div>
+         <div class="header__search-menu">
+            <a class="header__search-menu-select">Chọn danh mục</a>
+            <i class="header__search-menu-icon bx bx-chevron-down"></i>
+            <div class="header__search-menu-wrap">
+               <ul class="header__search-menu-list ">
+                  <li class="header__search-menu-item">
+                     <span class="header__search-menu-sp">Nước uống</span>
+                  </li>
+                  <li class="header__search-menu-item">
+                     <span>Đồ chơi</span>
+                  </li>
+                  <li class="header__search-menu-item">
+                     <span>Xe máy</span>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <!-- Cart layout -->
+      <div class="header__cart">
+          <a href="{{url('/cart')}}">
+          <div class="header__cart-wrap">
+            <i class="header__cart-icon bx bx-cart"></i>
+            <span class="header__cart-quantity">1</span>
+         </div>
+          </a>
+         
+      </div>
+   </div>
+</div>
+</header>
+<div class="app__container">
+   <div class="grid wide">
+      <div class="row sm-gutter app__content">
+         @yield('sidebar')
+          @yield('content')
+         <div class="col l-10 m-12 c-12">
+            <!-- Home filter -->
+            <!-- product -->
+            <div class="home-product">
+           
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="col-lg-12 " style="margin-top: 10px;">
+   <div class="cart">
+      <div class="card-header flex-item">
+         <div class="col-lg-4">
+            <select name="select" id="select_category" class="form-control form-control-primary">
+               <option value="">Chọn danh mục</option>
+               <option value="1">Nước uống</option>
+               <option value="2">Xe máy</option>
+               <option value="3">Đồ chơi</option>
+            </select>
+         </div>
+      </div>
+      
+   </div>
+</div>
+    
+</body>
+    <script type="text/javascript" src="{{asset('jquery\jquery.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript" src="{{asset('js/course/index.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js\bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{asset('js\jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('js\dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('js\data-table-custom.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js\select2.full.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js\select2-custom.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/course/cart.js')}}"></script>
+<script></script>
+@stack('scripts')
+</html>

@@ -1,0 +1,203 @@
+$(function() {
+    dataTable();
+    loadCart();
+    totalCart();
+    $('#select_category').change(function() {
+        let id = $(this).find(':selected').val();
+        productByCate(id);
+    });
+        
+    $('.qty').keyup(function(){ 
+        let parent = $(this).parents("tr");
+        let price = parseFloat(parent.find('td:eq(8)').text());
+        let qty = parseFloat(parent.find('.qty').val());
+        let discount = parseFloat(parent.find('td:eq(7)').text());
+        let unit = $('.unit option:selected').val();
+        let conversion_value = parseFloat(parent.find('td:eq(2)').text());
+        let inventor = parseFloat(parent.find('td:eq(5)').text());
+        if(unit == 'conversion_unit'){
+            if(qty > inventor*conversion_value){
+                message("Cảnh báo chai!", "Số lượng không đủ", "error");
+            }else{
+                let total = totalWholesale(price, discount, qty);
+                parent.find('.total').text(total);
+            }
+        }else{
+            if(qty > inventor){
+                message("Cảnh báo !", "Số lượng không đủ", "error");
+            }else{
+                let total = totalWholesale(price, discount, qty);
+                parent.find('.total').text(total);
+            }
+        }
+
+        
+        totalCart();
+    });
+
+    $('.unit').change(function(){
+        let parent = $(this).parents("tr");
+        let unit = parent.find(this).find(':selected').val();
+        let price = parseFloat(parent.find('td:eq(8)').text());
+        let price_orginal = parseFloat(parent.find('td:eq(6)').text());
+        let conversion_value = parseFloat(parent.find('td:eq(2)').text());
+        let qty = parseFloat(parent.find('.qty').val());
+        let discount = parseFloat(parent.find('td:eq(7)').text());
+        if(unit == 'conversion_unit'){
+            var total =  totalRetail(price, conversion_value, discount, qty);
+            parent.find('td:eq(8)').text(banLe(price, conversion_value));
+            parent.find('td:eq(6)').text(price_orginal/conversion_value);
+            parent.find('.total').text(total);
+        }else {
+            if(qty >= conversion_value){
+                qty = qty / conversion_value;
+                parent.find('.qty').val(qty);
+            }
+            let si = (price*conversion_value) * qty;
+            let giamgia = si * discount / 100;
+            let total = si - giamgia; 
+            parent.find('td:eq(8)').text(price*conversion_value);
+            parent.find('td:eq(6)').text(price_orginal*conversion_value);
+            parent.find('.total').text(total);
+        }
+        totalCart();
+    });
+});
+        
+
+function totalCart() {
+    let sum = 0;
+    $(".total").each(function (key, value) {
+        sum += parseFloat($(this).text());
+    });
+    $(".totalCart").text(sum);
+}
+    
+function loadCart(){
+    return $.parseJSON($.cookie('product'));
+}
+
+async function dataTable() {
+    return await $("#cart").DataTable({
+        data: loadCart(),
+        columns: [
+            { data: "name" },
+            { data: "unit", visible: false },
+            { data: "conversion_unit", visible: false },
+            {
+                data: null,
+                render: function (data) {
+                    return `
+                        <select class="unit">
+                            <option selected value="unit">${data["unit"]}</option>
+                            <option value="conversion_unit">${data["conversion_unit"]}</option>
+                        </select>
+                    `;
+                },
+            },
+            { data: "conversion_value" },
+            { data: "quantity_whole" },
+            { data: "price_whole" },
+            { data: "inventor" },
+            { data: "price_orginal" },
+            { data: "discount" },
+            { data: "price" },
+            {
+                data: "qty",
+                render: function (data) {
+                    return `<input class="qty" value="${data}"/>`;
+                },
+            },
+            {
+                data: null,
+                render: function (data, type, row, meta) {
+                    return `<span class="total">${(data["price"] - (data["price"] * data["discount"]) / 100) * data["qty"]}</span>`;
+                },
+            },
+        ],
+        bDestroy: true,
+        pageLength: 5,
+
+        language: {
+            processing: "Loading",
+            search: "Tìm kiếm",
+            lengthMenu: "Hiển thị _MENU_ ",
+            info: "Bản ghi từ _START_ đến _END_ Tổng cộng _TOTAL_ bản ghi",
+            infoEmpty: "Khi không có dữ liệu, Hiển thị 0 bản ghi trong 0 tổng cộng 0 ",
+
+            zeroRecords: "Không tìm thấy",
+            emptyTable: "Không có dữ liệu",
+            paginate: {
+                first: "Trang đầu",
+                previous: "Trang trước",
+                next: "Trang sau",
+                last: "Trang cuối",
+            },
+        },
+    });
+}
+// let example = $('#example').DataTable({
+//     columnDefs: [{
+//         orderable: false,
+//         className: 'select-checkbox',
+//         targets: 0
+//     }],
+//     select: {
+//         style: 'os',
+//         selector: 'td:first-child'
+//     },
+//     order: [
+//         [1, 'asc']
+//     ]
+// });
+// example.on("click", "th.select-checkbox", function() {
+//     if ($("th.select-checkbox").hasClass("selected")) {
+//         example.rows().deselect();
+//         $("th.select-checkbox").removeClass("selected");
+//     } else {
+//         example.rows().select();
+//         $("th.select-checkbox").addClass("selected");
+//     }
+// }).on("select deselect", function() {
+//     ("Some selection or deselection going on")
+//     if (example.rows({
+//             selected: true
+//         }).count() !== example.rows().count()) {
+//         $("th.select-checkbox").removeClass("selected");
+//     } else {
+//         $("th.select-checkbox").addClass("selected");
+//     }
+// });
+
+
+// Function xài chung
+function message(title,value, type) {
+    toast({
+        title: `${title}`,
+        message: `${value}`,
+        type: `${type}`,
+        duration: 4000,
+    });
+}
+function banLe(price, conversion_value) {
+    return price / conversion_value;
+}
+
+function banSy(price, conversion_value) {
+    return price / conversion_value;
+}
+// Bán lẻ
+function totalRetail (price, conversion_value, discount, qty){
+    let giale = (price/conversion_value) * qty;
+    let dis = giale * discount / 100;
+    let total = giale - dis; 
+    return total;
+}
+
+// bán sỉ
+function totalWholesale (price, discount, qty){
+    let giachan = price * qty;
+    let dis = giachan * discount / 100; 
+    let total = giachan - dis; 
+    return total;
+}

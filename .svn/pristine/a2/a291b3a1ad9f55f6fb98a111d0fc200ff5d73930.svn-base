@@ -1,0 +1,123 @@
+$(function () {
+    $("#select_category").change(function () {
+        let id = $(this).find(":selected").val();
+        productByCate(id);
+    });
+
+    $("#search").keyup(function () {
+        var search_value = $("#search").val();
+        keywords = toLowerCase(removeAccents(search_value));
+        $(".productbox").each(function (i, value) {
+            let data_name = $(this).data("search");
+            if (checkKey(data_name, keywords)) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+});
+
+function get(){
+    return getCookies().product;
+}
+
+function addToCart(r) {
+    let id = $(r).data("id");
+    let qty = $(r).data("qty");
+    let name = $(r).data("name");
+    let price_orginal = $(r).data("price_orginal");
+    let price = $(r).data("price");
+    let discount = $(r).data("discount");
+    let unit = $(r).data("unit");
+    let conversion_unit = $(r).data("conversion_unit");
+    let conversion_value = $(r).data("conversion_value");
+    let quantity_whole = $(r).data("quantity_whole");
+    let price_whole = $(r).data("price_whole");
+    let inventor = $(r).data("inventor");
+
+    var cookie = getCookies().product;
+    console.log(cookie);
+    if (cookie === undefined) {
+        cookie = [];
+    } else {
+        cookie = $.parseJSON(cookie);
+    }
+    let product = {
+        id: id,
+        qty: qty,
+        name: name,
+        price_orginal: price_orginal,
+        price: price,
+        discount: discount,
+        unit: unit,
+        conversion_unit: conversion_unit,
+        conversion_value: conversion_value,
+        quantity_whole: quantity_whole,
+        price_whole: price_whole,
+        inventor: inventor,
+    };
+}
+
+function productByCate(id){
+    $.ajax({
+        url: 'http://127.0.0.1:8000/product',
+        method: 'GET',
+        success: data =>{
+            //console.log(data);
+            var htmls = data.map(product=>{
+                if(product.category_id == id){
+                    let name = toLowerCase(removeAccents(product.name));
+                    let price = product.price;
+                    let data_search = name+price;
+                    return `
+                 
+                    <div class="col-lg-3 column productbox" data-search="${data_search}">
+                        <img style="width:100%" src="https://nordiccoder.com/app/uploads/2020/01/6ab1641f-fb02-4f84-b09d-b8f001063b66.png" class="img-responsive">
+                        <div class="producttitle">${product.name}</div>
+                        <div class="productprice"><div class="pull-right"></div><div class="pricetext"><strike>${product.price}</strike></div></div>
+                        <div class="productprice"><div class="pull-left"></div><div class="pricetext">${product.price - product.price*product.discount/100}</div></div>
+                        <a href="#" data-id="${product.id}" data-qty="1" data-name="${product.name}" data-price_orginal="${product.price_orginal}" data-price="${product.price}" data-discount="${product.discount}" data-unit="${product.unit}" data-conversion_unit="${product.conversion_unit}" data-conversion_value="${product.conversion_value}" data-quantity_whole="${product.quantity_whole}" data-price_whole="${product.price_whole}" data-inventor="${product.inventor}" onClick="addToCart($(this))" class="btn btn-danger btn-sm" role="button">BUY</a>
+                    </div>
+                 
+                    `;
+                }
+            })
+            $('.list_product').html(htmls);
+        }
+    })
+}
+// Function
+function getCookies() {
+    let c = document.cookie.split(";").reduce( (ac, cv, i) => Object.assign(ac, {[cv.split('=')[0]]: cv.split('=')[1]}), {});
+    return c;
+}
+
+function checkKey(data, key) {
+    return data.includes(key);
+}
+
+function removeAccents(str) {
+    return str.normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/đ/g, 'd').replace(/Đ/g, 'D');
+}
+
+function toLowerCase(str) {
+    return str.toLowerCase();
+}
+
+function addCookieData(cName, cValue) {
+    document.cookie = cName + "=" + cValue + "; " + "; path=/";
+}
+
+function getCookies() {
+    let c = document.cookie.split(";").reduce( (ac, cv, i) => Object.assign(ac, {[cv.split('=')[0]]: cv.split('=')[1]}), {});
+    return c;
+}
+
+function clearCookie() {
+    document.cookie = "name=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+}
+
+// clearCookie();   

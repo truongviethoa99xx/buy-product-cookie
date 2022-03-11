@@ -1,0 +1,45 @@
+.center-btn {
+    display: flex;
+    justify-content: space-around;
+}
+
+.btn-flex {
+    display: flex;
+}
+
+.btn-custom {
+    margin-left: 4px;
+    min-width: 40px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-cus {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-edit {
+    background-color: #f0ad4e;
+}
+
+.btn-remove {
+    background-color: #d9534f;
+}
+
+.btn-view {
+    background-color: blue;
+}

@@ -1,0 +1,283 @@
+$(function() {
+    dataTable();
+    loadCart();
+    totalCart();
+
+    $('.category-item').click(function() {
+        hide = true;
+        if (hide) $('.category-item').removeClass('category-item--active');
+        hide = true;
+        $(this).addClass("category-item--active");
+    });
+    
+    // $(".qty").keypress(function(event) {
+    //     return isNumber(event.keyCode);
+    // });
+        
+    // $('.qty').keyup(function(event){ 
+    //     let parent = $(this).parents("tr");
+    //     let price = parseFloat(parent.find('.price').text());
+    //     let price_original = parseFloat(parent.find('.price_original').text());
+    //     let qty = parseFloat(parent.find('.qty').val());
+    //     // let discount = parseFloat(parent.find('.discount').text());
+    //     let unit = parent.find('.unit option:selected').val();
+    //     let conversion_value = parseFloat(parent.find('.hidden').data('conversion_value'));
+    //     let inventor = parseFloat(parent.find('.inventor').text());
+    //     let price_whole = parseFloat(parent.find('.hidden').data('price_whole'));
+    //     let quantity_whole = parseFloat(parent.find('.hidden').data('quantity_whole'));
+    //    // console.log(price_original, price_whole, price, qty, quantity_whole, conversion_value);
+       
+    //     if(unit == 'conversion_unit'){
+    //         if(qty > inventor){
+    //             message("Cảnh báo unit!", "Số lượng không đủ", "error");
+    //         }else{
+         
+    //             var dis = changeDiscount(price_original, price_whole, price, qty, quantity_whole, conversion_value);
+    //             //console.log(dis);
+    //             var new_price = price_original-(price_original*dis/100);
+    //             //parent.find('.price').text(new_price)
+    //             parent.find('.total').text(new_price*qty);
+    //             parent.find('.discount').text(dis);
+
+    //         }
+    //     }else{
+    //         if(qty > inventor){
+    //             message("Cảnh báo!", "Số lượng không đủ", "error");
+    //         }else{
+    //             parent.find('.total').text(price*qty);
+    //         }
+    //     }
+
+        
+    //     totalCart();
+    //     return isNumber(event.keyCode);
+    // });
+    $(".qty").keypress(function(event) {
+        return isNumber(event.keyCode);
+    });
+
+    $('.qty').on('input paste', function(){
+        let qty = parseFloat($(this).val());
+        let inventor = parseFloat($(this).parents('tr').find('.td:eq(2)').text())
+        if(qty >= inventor){
+            $(this).val(inventor);
+        }
+        let quantity_whole = parseFloat($(this).parents('tr').find('td:eq(1)').find(':selected').data('quantity_whole'))
+        let price = parseFloat($(this).parents('tr').find('td:eq(1)').find(':selected').data('price'))
+        let price_whole = parseFloat($(this).parents('tr').find('td:eq(1)').find(':selected').data('price_whole'))
+        let price_original = parseFloat($(this).parents('tr').find('td:eq(1)').find(':selected').data('price_original'))
+        //console.log(quantity_whole, price, price_original)
+        if(qty >= quantity_whole){
+            //console.log(price_whole, price, price_original)
+            $(this).parents('tr').find('td:eq(6)').text();
+            $(this).parents('tr').find('td:eq(5)').text(addCommas(price_whole.toFixed(0)));
+            $(this).parents('tr').find('td:eq(4)').text(addCommas((100 - (price_whole/price_original*100)).toFixed(0)));
+
+        }else{
+            $(this).parents('tr').find('td:eq(5)').text(addCommas(price.toFixed(0)));
+            $(this).parents('tr').find('td:eq(4)').text(addCommas((100 - (price/price_original*100)).toFixed(0)));
+        }
+        summary($(this))
+    })
+
+    $('.unit').on('change',function(){
+        //let parent = $(this).parents("tr");
+       // let unit = parent.find(this).find(':selected').val();
+        let price = parseFloat($(this).find(':selected').data('price'));
+        let price_original = parseFloat($(this).find(':selected').data('price_original'));
+        let inventor = parseFloat($(this).find(':selected').data('inventor'));
+        //let conversion_value = parseFloat(parent.find(':selected').data('conversion_value'));
+        let quantity_whole = parseFloat($(this).find(':selected').data('quantity_whole'));
+        //let discount = parseFloat(parent.find('.discount').text());
+        let qty = parseFloat( $(this).parents('tr').find('.qty').val() );
+        let discount = 100 - (price/price_original*100);
+        console.log(price,price_original, inventor, quantity_whole, discount);
+        $(this).parents('tr').find('td:eq(2)').text(inventor);
+        $(this).parents('tr').find('td:eq(3)').text(price_original);
+        $(this).parents('tr').find('td:eq(4)').text(discount);
+        $(this).parents('tr').find('td:eq(5)').text(price);
+    
+        summary($(this))
+        // if(unit == 'conversion_unit'){
+            
+        //     parent.find('.price_original').text(price_original/conversion_value);
+        //     let price = price_original/conversion_value - price_original/conversion_value*discount/100;
+        //     parent.find('.price').text(price);
+           
+         
+        //     parent.find('.total').text(price*qty);
+        //     parent.find('.inventor').text(inventor*conversion_value);
+        // }else {
+            
+        //     parent.find('.price_original').text(price_original*conversion_value);
+        //     let price = price_original*conversion_value - price_original*conversion_value*discount/100;
+        //     parent.find('.price').text(price*qty);
+ 
+        //     parent.find('.total').text(price*qty);
+        //     parent.find('.inventor').text(inventor*conversion_value);
+        // }
+        // totalCart();
+    });
+});
+
+function summary(r){
+    let qty = parseFloat( r.parents('tr').find('td:eq(6) input').val() );
+    let price = parseFloat( r.parents('tr').find('td:eq(5)').text());
+
+    console.log(qty, price);
+    r.parents('tr').find('td:eq(7)').text(qty*price)
+}
+function deleteCart(r){
+    $('#cart').DataTable().row( $(r).parents('tr') ).remove().draw();
+    totalCart();
+}
+
+function totalCart() {
+    let sum = 0;
+    $(".total").each(function (key, value) {
+        sum += parseFloat($(this).text());
+    });
+    $(".totalCart").text(sum);
+}
+    
+function loadCart(){
+    let cookie = $.cookie('product');
+    if(cookie === undefined){
+        cookie = null
+    }else{
+        cookie = $.cookie('product');
+    }
+    return $.parseJSON(cookie);
+}
+
+async function dataTable() {
+    return await $("#cart").DataTable({
+        data: loadCart(),
+        columns: [
+            { data: "name" },
+            { data: "unit", visible: false },
+            { data: "conversion_unit", visible: false },
+            {
+                data: null,
+                render: function (data,row) {
+                    return `
+                        <select class="unit">
+                            <option data-quantity_whole="${data['quantity_whole']}" data-inventor="${data['inventor']}" data-price="${data['price']}" data-price_original="${data['price_original']}" data-inventor="${data['inventor']}" data-price_whole="${data['price_whole']}" value="">${data["unit"]}</option>
+                            <option data-quantity_whole="${data['quantity_whole']*data['conversion_value']}" data-price="${data['price']/data['conversion_value']}" data-price_original="${data['price_original']/data['conversion_value']}" data-price_whole="${data['price_whole']/data['conversion_value']}" data-inventor="${data['inventor']*data['conversion_value']}" value="">${data["conversion_unit"]}</option>
+                        </select>
+                    `;
+                },
+            },
+            { data: "conversion_value", visible: false },
+            { data: "quantity_whole", visible: false },
+            { data: "price_whole" , visible: false},
+            
+            { data: "inventor",
+                render: function (data, type, row, meta) {
+                    return `<input data-quatity_whole="${row['quantity_whole']}" data-price-whole="${row['price_whole']}" data-price_whole="${row['price_whole']}" data-quantity_whole="${row["quantity_whole"]}" data-conversion_value="${row["conversion_value"]}" class="hidden" type="hidden" /><p class="inventor" >${data}</p>`;
+                }
+             },
+            { data: "price_original",
+                render: function (data) {
+                    return `<p class="price_original">${data}</p>`;
+                } 
+            },
+            { data: null,  
+                render: function (data) {
+                    return `<p class="discount" data-discount="">${discount(data['price'], data['price_original'])}</p>`;
+                }
+            },
+            { data: "price" ,
+                render: function (data) {
+                    return `<p class="price">${data}</p>`;
+                }
+            },
+            {
+                data: "qty",
+                render: function (data) {
+                    return `<input class="qty" value="${data}"/>`;
+                },
+            },
+            {
+                data: null,
+                render: function (data) {
+                    return `<span class="total">${data['price']* data['qty']}</span>`;
+                },
+            },
+            {
+                data: null,
+                render: function (data) {
+                    return `<button onClick="deleteCart($(this))" class="btn-primary btn-sm">Xóa</buttob>`;
+                },
+            },
+        ],
+        bDestroy: true,
+        pageLength: 5,
+
+        language: {
+            processing: "Loading",
+            search: "Tìm kiếm",
+            lengthMenu: "Hiển thị _MENU_ ",
+            info: "Bản ghi từ _START_ đến _END_ Tổng cộng _TOTAL_ bản ghi",
+            infoEmpty: "Khi không có dữ liệu, Hiển thị 0 bản ghi trong 0 tổng cộng 0 ",
+
+            zeroRecords: "Không tìm thấy",
+            emptyTable: "Không có dữ liệu",
+            paginate: {
+                first: "Trang đầu",
+                previous: "Trang trước",
+                next: "Trang sau",
+                last: "Trang cuối",
+            },
+        },
+    });
+}
+
+// Function xài chung
+function message(title,value, type) {
+    toast({
+        title: `${title}`,
+        message: `${value}`,
+        type: `${type}`,
+        duration: 4000,
+    });
+}
+
+
+// check number
+function isNumber(n) {
+    return /\d/.test(String.fromCharCode(n));
+}
+// max
+function maxMin() {
+    var max = $('.inventor').text();
+    console.log(max);
+    // var num = +number, max = 100, min = 0;
+    // number = isNaN(num) ? min : num > max ? max : num < min ? min : num;
+    return max;
+}  
+maxMin();
+
+// Add comma to number
+function addCommas(num) {
+    var str = num.toString().split('.');
+    if (str[0].length >= 4) {
+        str[0] = str[0].replace(/(\d)(?=(\d{3})+$)/g, '$1,');
+    }
+    return str.join('.');
+}
+function discount(gia,giagoc){
+    num = 100-(gia/giagoc*100);
+    return num.toFixed(0);
+}
+
+function changeDiscount (giagoc, giasi, giale, soluongmua, soluongsi, giatriquydoi) {
+    if(soluongmua >= soluongsi*giatriquydoi) {
+        var dis = 100 - ((giasi)/(giagoc)*100);
+        return dis.toFixed(0);
+    }
+    else {
+        var dis = 100 - ((giale)/(giagoc)*100);
+        return dis.toFixed(0);
+    }
+}

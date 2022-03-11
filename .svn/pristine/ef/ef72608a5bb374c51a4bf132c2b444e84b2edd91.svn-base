@@ -1,0 +1,64 @@
+$(function() {
+    $('#select_category').change(function() {
+        let id = $(this).find(':selected').val();
+        productByCate(id);
+    });
+
+    $('#search').keypress(function(){
+        let id = $('#select_category').find(':selected').val();
+        var search_value = $('#search').val();
+        $('.productbox').each(function(i,value){
+            let string = $(this).find('.producttitle').text();
+            if(search_value.includes(string)){
+                console.log('lk');
+                //$('.list_product').html(value);
+            }else{
+                console.log('sd')
+                //productByCate(id);
+            }
+        })
+    })
+})
+
+
+
+function productByCate(id){
+    $.ajax({
+        url: 'http://127.0.0.1:8000/product',
+        method: 'GET',
+        success: data =>{
+            //console.log(data);
+            var htmls = data.map(product=>{
+                if(product.category_id == id){
+                    return `
+                 
+                    <div class="col-md-3 column productbox hide-item">
+                    <img style="width:100%" src="https://nordiccoder.com/app/uploads/2020/01/6ab1641f-fb02-4f84-b09d-b8f001063b66.png" class="img-responsive">
+                    <div class="producttitle">${product.name}</div>
+                    <div class="productprice"><div class="pull-right"></div><div class="pricetext">${product.price}</div></div>
+                    <a href="#" class="btn btn-danger btn-sm" role="button">BUY</a>
+                    </div>
+                 
+                    `;
+                }
+            })
+            $('.list_product').html(htmls);
+        }
+    })
+}
+// Function
+function checkKey(key, data) {
+    let a = key.includes(data);
+    console.log(a);
+}
+
+function removeAccents(str) {
+    return str.normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, '')
+              .replace(/đ/g, 'd').replace(/Đ/g, 'D');
+}
+
+function toLowerCase(str) {
+    return str.toLowerCase();
+}
+

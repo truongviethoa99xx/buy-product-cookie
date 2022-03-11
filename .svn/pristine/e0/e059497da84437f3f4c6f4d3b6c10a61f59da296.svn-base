@@ -1,0 +1,91 @@
+$(function() {
+    $('#select_category').change(function() {
+        let id = $(this).find(':selected').val();
+        productByCate(id);
+    });
+
+    $('#search').keyup(function(){
+        //let id = $('#select_category').find(':selected').val();
+
+        var search_value = $('#search').val();
+        search_value = toLowerCase(removeAccents(search_value));
+      
+        search_value = removeAccents(search_value);
+        search_value = toLowerCase(search_value);
+        $('.productbox').each(function(i,value){
+            //let string = $('.productbox').data('search');
+            console.log(value);
+            string = removeAccents(string);
+            string = toLowerCase(string);
+            console.log(string);
+            let data = string.includes(search_value);
+            // console.log(data);
+            // if(string.includes(search_value)){
+            //     $('.list_product').html(value);
+            //     // console.log('true');
+            // }else{
+            //     console.log("false");
+            // }
+        })
+    })
+})
+
+// <<<<<<< .mine// $('#search').keyup(function() {
+// //     var key = $(this).val();
+// //     $('.productbox').each(function(i,value){
+// //         let string = $(this).find('.producttitle').text();
+// //         if(search_value.includes(string)){
+// //             $('.list_product').html(value);
+// //         }else{
+// //             return false;
+// //         }
+// //     })
+// //     key = removeAccents(key);
+// //     key = toLowerCase(key);
+// //     return key;
+// // });
+// =======
+
+function productByCate(id){
+    $.ajax({
+        url: 'http://127.0.0.1:8000/product',
+        method: 'GET',
+        success: data =>{
+            //console.log(data);
+            var htmls = data.map(product=>{
+                if(product.category_id == id){
+                    let name = toLowerCase(removeAccents(product.name));
+                    let price = product.price;
+                    let data_search = name+price;
+                    return `
+                 
+                    <div class="col-md-3 column productbox" data-search="${data_search}">
+                        <img style="width:100%" src="https://nordiccoder.com/app/uploads/2020/01/6ab1641f-fb02-4f84-b09d-b8f001063b66.png" class="img-responsive">
+                        <div class="producttitle">${product.name}</div>
+                        <div class="productprice"><div class="pull-right"></div><div class="pricetext">${product.price}</div></div>
+                        <a href="#" class="btn btn-danger btn-sm" role="button">BUY</a>
+                    </div>
+                 
+                    `;
+                }
+            })
+            $('.list_product').html(htmls);
+        }
+    })
+}
+// Function
+function checkKey(key, data) {
+    let a = key.includes(data);
+    console.log(a);
+}
+
+function removeAccents(str) {
+    return str.normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, '')
+              .replace(/đ/g, 'd').replace(/Đ/g, 'D');
+}
+
+function toLowerCase(str) {
+    return str.toLowerCase();
+}
+

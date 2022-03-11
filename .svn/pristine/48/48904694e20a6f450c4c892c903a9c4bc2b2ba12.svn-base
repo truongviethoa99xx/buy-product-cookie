@@ -1,0 +1,27 @@
+@extends('layouts.layout')
+@section('content')
+<table class="table table-bordered" id="cart">
+    <thead>
+        <tr>
+            <th>Tên</th>
+            <th>Đơn vị __hidden</th>
+            <th>Đơn vị quy đổi __hidden</th>
+            <th>Đơn vị</th>
+            <th>conversion_value __hidden</th>
+            <th>quantity_whole __hidden</th>
+            <th>price_whole __hidden</th>
+            <th>Tồn kho</th>
+            <th>Giá gốc</th>
+            <th>Giảm giá</th>
+            <th>Giá bán</th>
+            <th class="sl">Số lượng mua</th>
+            <th>Thành tiền</th>
+        </tr>
+    </thead>
+</table>
+<div class="row">
+    <div class="col-12">
+        <span class="totalCart"></span>
+    </div>
+</div>
+@endsection

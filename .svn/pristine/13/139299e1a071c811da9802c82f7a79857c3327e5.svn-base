@@ -1,0 +1,24 @@
+@extends('layouts.layout')
+@section('sidebar')
+ @include('../inc/sidebar')
+@endsection
+@section('content')
+<div class="app__container">
+   <div class="grid wide">
+      <div class="row sm-gutter app__content">
+         
+        <div class="col l-10 m-12 c-12">
+        <!-- Home filter -->
+        <!-- product -->
+        <div class="home-product">
+        <div class="row list_product"></div>
+        </div>
+        </div>
+      </div>
+   </div>
+</div>
+    
+
+@endsection
+@push('scripts')
+@endpush
