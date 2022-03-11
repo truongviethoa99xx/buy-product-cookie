@@ -40,12 +40,12 @@
                 <div class="buy-body-element">
                     <span class="buy-body-name">VAT:</span>
                     <span class="buy-body-value">
-                        <input type="text" class="buy-body-value-input">
+                        <input type="text" class="buy-body-value-input vat" name="ccdates" value="0">
                     </span>
                 </div>
                 <div class="buy-body-element">
                     <span class="buy-body-name">Tổng thanh toán:</span>
-                    <span class="buy-body-value">Bía</span>
+                    <span class="buy-body-value money">0</span><span>đ</span>
                 </div>
         </div>
     </div>

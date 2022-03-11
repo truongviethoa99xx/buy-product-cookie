@@ -14,16 +14,31 @@ $(function() {
         return isNumber(event.keyCode);
     });
 
-    $(".buy-body-value-input").keyup(function() {
-        let vat = $(this).val();
-        console.log(vat);
-        return maxMin(vat);
+    // $(".buy-body-value-input").keyup(function() {
+    //     let vat = $(this).val();
+        
+    // });
+    document.querySelector("*[name=ccdates]").addEventListener("input", function(){
+        this.value = maxMin(this.value);
     });
+
+    $('.vat').on('change', function(){
+        let vat = parseFloat($(this).val());
+        let total = parseFloat($('.totalCart').text().replace(/,/gi, ""));
+        if (vat > 100){
+            message('Thông báo', 'Vui lòng nhập từ 0 - 100', 'error')
+            return false
+        }else{
+            var money = total + (total*vat/100);
+            $('.money').text(addCommas(money));
+        }
+        
+    })
 
     $('.qty').on('input paste', function(){
         let qty = parseFloat($(this).val());
         console.log(qty);
-        let inventor = parseFloat($(this).parents('tr').find('.td:eq(3)').text())
+        var inventor = parseFloat($(this).parents('tr').find('.inventor').text());
         if(qty >= inventor){
             $(this).val(inventor);
         }
@@ -75,7 +90,7 @@ function totalCart() {
     $(".total").each(function (key, value) {
         sum += parseFloat($(this).text());
     });
-    $(".totalCart").text(sum);
+    $(".totalCart").text(addCommas(sum));
 }
     
 function loadCart(){
@@ -140,7 +155,7 @@ async function dataTable() {
             {
                 data: null,
                 render: function (data) {
-                    return `<span class="total">${data['price']* data['qty']}</span>`;
+                    return `<span class="total" value="0">${data['price']* data['qty']}</span>`;
                 },
             },
             {
@@ -205,6 +220,14 @@ function maxMin(number) {
     return number;
 }  
 
+// function maxQty() {
+//     var max = $('.inventor').text();
+//     console.log(max);
+//     // var num = +number, max = 100, min = 0;
+//     // number = isNaN(num) ? min : num > max ? max : num < min ? min : num;
+//     // return number;
+// }
+
 function discount(gia,giagoc){
     num = 100-(gia/giagoc*100);
     return num.toFixed(0);
@@ -240,4 +263,5 @@ function deleteCart(id,r){
     document.cookie = `product=${product} `;
     countCart();
 }
+// tong thanh toan
 
