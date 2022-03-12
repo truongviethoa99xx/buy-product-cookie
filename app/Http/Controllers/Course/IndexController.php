@@ -216,6 +216,51 @@ class IndexController extends Controller
     public function viewCart(){
         return view('course.cart');
     }
+    public function staff(){
+        $data = array(
+            [
+                "stt"=> 1,
+                "name"=> "Thầy ông nội",
+                "phone"=> "0909090909",
+                "email"=> "fake@con.vn",
+                "gender"=> "Nam",
+                "image"=> "https://toigingiuvedep.vn/wp-content/uploads/2021/06/hinh-anh-anime-cute.jpg",
+            ],
+            [
+                "stt" => 2,
+                "name"=> "Võ Thị Diễm My",
+                "phone" => "0909090909",
+                "email" => "gmai",
+                "gender"=> "Nữ",
+                "image"=> "https://i1.taimienphi.vn/tmp/cf/aut/hinh-anh-nguoi-mau.jpg",
+            ],
+            [
+                "stt"=> 3,
+                "name"=> "Mỹ Duyên",
+                "phone"=> "0909090909",
+                "email"=> "fake@con.vn",
+                "gender"=> "Nữ",
+                "image"=> "https://luv.vn/wp-content/uploads/2021/09/hinh-anh-nguoi-mau-lam-hinh-nen-dien-thoai-1.jpg",
+            ],
+            [
+                "stt"=> 4,
+                "name"=> "Huỳnh Thảo Hoài",
+                "phone"=> "0909090909",
+                "email"=> "fake@con.vn",
+                "gender"=> "Nữ",
+                "image"=> "https://luv.vn/wp-content/uploads/2021/09/hinh-anh-nguoi-mau-lam-hinh-nen-dien-thoai-3.jpg",
+            ],
+            [
+                "stt"=> 5,
+                "name"=> "OK baby",
+                "phone"=> "0909090909",
+                "email"=> "fake@con.vn",
+                "gender"=> "Nữ",
+                "image"=> "https://luv.vn/wp-content/uploads/2021/09/hinh-anh-nguoi-mau-lam-hinh-nen-dien-thoai-3.jpg",
+            ]
+        );
 
+        return response()->json($data);
+    }
     
 }

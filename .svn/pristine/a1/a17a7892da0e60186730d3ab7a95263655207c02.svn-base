@@ -1,0 +1,32 @@
+.rounded-circle.img-fluid {
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #000 ;
+}
+
+.text-muted {
+    min-width: 300px;
+    border: none;
+    outline: none;
+}
+
+.text-center {
+    display: flex;
+    text-align: center!important;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    position: relative;
+}
+
+.icon-file {
+    position: absolute;
+    bottom: 10%;
+    right: 28%;
+}
+
+.card.flex-card-cus {
+    display: flex; 
+}

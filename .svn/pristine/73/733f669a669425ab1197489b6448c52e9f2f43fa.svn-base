@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+        <link rel="stylesheet" href="{{asset('css/profile.css')}}" />
+        <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+        <title>User profile</title>
+
+        <!-- Fonts -->
+        <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" />
+
+        <!-- Styles -->
+        <section style="background-color: #eee;">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card mb-4">
+                            <div class="card-body text-center">
+                                <img id="previewimg" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;" />
+                                <div id="plussign" style="font-size: 30px;"><i class='bx bxs-edit bx-tada' ></i></i></div>
+                                <input type="file" id="getfile" accept="image/*" style="display:none;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Họ và tên:</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input class="text-muted mb-0" />
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Số điện thoại:</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input class="text-muted mb-0" />
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Email</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input class="text-muted mb-0" />
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Giới tính</p>
+                                    </div>
+                                    <div class="col-sm-9"><input type="radio" name="gioitinh" id="1" />Nam <input type="radio" name="gioitinh" id="2" />Nữ</div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <button type="button" class="btn btn-primary">Lưu</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </head>
+    <script src="{{asset('js/course/profile.js')}}"></script>
+</html>

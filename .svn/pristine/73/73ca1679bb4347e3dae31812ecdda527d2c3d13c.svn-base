@@ -1,0 +1,7 @@
+.rounded-circle.img-fluid {
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    object-fit: contain;
+    border: 1px solid #000 ;
+}

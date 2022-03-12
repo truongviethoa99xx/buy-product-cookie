@@ -1,0 +1,15 @@
+const plusSign = document.querySelector('#plussign');
+const getFile = document.querySelector('#getfile');
+
+plusSign.addEventListener('click', function () { getFile.click(); });
+getFile.addEventListener('change', function () { preview(getFile.files[0]); });
+
+function preview(file) {
+  const img = document.querySelector('#previewimg');
+  img.classList.add("obj");
+  img.file = file;
+
+  const reader = new FileReader();
+  reader.onload = (function(image) { return function(e) { image.src = e.target.result; }; })(img);
+  reader.readAsDataURL(file);
+}
